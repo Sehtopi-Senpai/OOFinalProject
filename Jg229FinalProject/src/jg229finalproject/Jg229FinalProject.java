@@ -9,10 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
@@ -33,6 +35,9 @@ public class Jg229FinalProject extends Application {
         root = new Pane();
         root.setPrefSize(600,600);
         
+        player = new Player();
+        player.setVelocity(new Point2D(1,0));
+        
         AnimationTimer timer = new AnimationTimer(){
             @Override
             public void handle(long now){
@@ -44,7 +49,14 @@ public class Jg229FinalProject extends Application {
     }
     
     private void updateTool(){
-        
+        for (GameModel bullet : bullets){
+            for(GameModel enemy : enemies){
+                if(bullet.isCollision(enemy)){
+                    bullet.setAlive(false);
+                    enemy.setAlive(false);
+                }
+            }
+        }
     }
     
     private static class Player extends GameModel{
@@ -55,7 +67,13 @@ public class Jg229FinalProject extends Application {
     
     private static class Enemy extends GameModel{
         Enemy(){
-            super(new Rectangle(40, 20, Color.WHITE));
+            super(new Circle(15, 15, 20, Color.WHITE));
+        }
+    }
+    
+    private static class Bullet extends GameModel {
+        Bullet(){
+            super(new Circle(4, 4, 4, Color.RED));
         }
     }
     

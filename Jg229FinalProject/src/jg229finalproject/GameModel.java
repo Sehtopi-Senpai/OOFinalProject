@@ -62,4 +62,8 @@ public class GameModel {
     public void rotateLeft(){
         view.setRotate(view.getRotate() - 5);
     }
+    
+    public boolean isCollision(GameModel other){
+        return getView().getBoundsInParent().intersects(other.getView().getBoundsInParent());
+    }
 }
