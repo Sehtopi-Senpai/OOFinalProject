@@ -46,6 +46,9 @@ public class GameModel {
         return alive;
     }
     
+    public boolean isDead(){
+        return !alive;
+    }
     //if it is dead set to alive
     public void setAlive(boolean alive){
         this.alive = alive;
@@ -56,11 +59,13 @@ public class GameModel {
     }
     
     public void rotateRight(){
-        view.setRotate(view.getRotate() + 5);
+        view.setRotate(view.getRotate() + 10);
+        setVelocity(new Point2D(Math.cos(Math.toRadians(getRotate())), Math.sin(Math.toRadians(getRotate()))));
     }
     
     public void rotateLeft(){
-        view.setRotate(view.getRotate() - 5);
+        view.setRotate(view.getRotate() - 10);
+        setVelocity(new Point2D(Math.cos(Math.toRadians(getRotate())), Math.sin(Math.toRadians(getRotate()))));
     }
     
     public boolean isCollision(GameModel other){
